@@ -1,0 +1,133 @@
+customization: 1383660837
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    #- reverse_lookup_translator    #禁用反查功能
+    - table_translator
+    - echo_translator
+  filters:
+    - simplifier #用于转换文字，必须有这个组件才能将平假名转换成片假名
+    - uniquifier
+
+
+key_binder:
+  bindings:
+    # Emacs style
+    - { when: composing, accept: Control+p, send: Up }
+    - { when: composing, accept: Control+n, send: Down }
+    - { when: composing, accept: Control+b, send: Left }
+    - { when: composing, accept: Control+f, send: Right }
+    - { when: composing, accept: Control+a, send: Home }
+    - { when: composing, accept: Control+e, send: End }
+    - { when: composing, accept: Control+d, send: Delete }
+    - { when: composing, accept: Control+k, send: Shift+Delete }
+    - { when: composing, accept: Control+h, send: BackSpace }
+    - { when: composing, accept: Control+g, send: Escape }
+    - { when: composing, accept: Control+bracketleft, send: Escape }
+    - { when: composing, accept: Alt+v, send: Page_Up }
+    - { when: composing, accept: Control+v, send: Page_Down }
+    # paging keys
+    - { when: composing, accept: ISO_Left_Tab, send: Page_Up }
+    - { when: composing, accept: Shift+Tab, send: Page_Up }
+    - { when: composing, accept: Tab, send: Page_Down }
+    - { when: has_menu, accept: minus, send: Page_Up }
+    - { when: has_menu, accept: equal, send: Page_Down }
+    #- { when: paging, accept: comma, send: Page_Up }
+    #- { when: has_menu, accept: period, send: Page_Down }
+    #我禁用了句号和逗号的翻页功能
+    # hotkey switch
+    #- { when: always, accept: Control+Shift+1, select: .next }
+    #- { when: always, accept: Control+Shift+2, toggle: ascii_mode }
+    #- { when: always, accept: Control+Shift+3, toggle: full_shape }
+    #- { when: always, accept: Control+Shift+4, toggle: simplification }
+    #- { when: always, accept: Control+Shift+5, toggle: extended_charset }
+    #- { when: always, accept: Control+Shift+exclam, select: .next }
+    #- { when: always, accept: Control+Shift+at, toggle: ascii_mode }
+    #- { when: always, accept: Control+Shift+numbersign, toggle: full_shape }
+    #- { when: always, accept: Control+Shift+dollar, toggle: simplification }
+    #- { when: always, accept: Control+Shift+percent, toggle: extended_charset }
+    - { when: always, accept: Shift+space, toggle: full_shape }
+    - { when: always, accept: Control+period, toggle: ascii_punct }
+    - { when: always, accept: F7, toggle: simplification } #設置F7为切换平片假名的快捷键
+    - { when: always, accept: Shift_R, toggle: simplification } #设置右键为切换平片假名
+
+ascii_composer:
+  switch_key:
+    Shift_L: inline_ascii
+    Shift_R: noop    #设置左shift为切换中英，屏蔽右shift的切换中英功能，这样可以空出右shift键来切换平片假名
+
+punctuator:
+  import_preset: default
+recognizer:
+  import_preset: default
+  patterns:
+    reverse_lookup: "^z[a-z]*'?$"
+reverse_lookup:
+  dictionary: pinyin_simp
+  preedit_format:
+    - "xform/([nl])v/$1ü/"
+    - "xform/([nl])ue/$1üe/"
+    - "xform/([jqxy])v/$1u/"
+  prefix: z
+  suffix: "'"
+  tips: "〔拼音〕"
+schema:
+  author:
+    - "發明人 王永民先生"
+    - "制作 零尾河童"
+  dependencies:
+    - pinyin_simp
+  description: |
+    河童子定制日文五筆字型86版
+    碼表源自 ibus-table
+    禁用敲 z 鍵進入拼音反查功能
+    
+  name: "河童日文86"
+  schema_id: kappajp86
+  version: 0.11.custom.1383660837
+speller:
+  delimiter: " ;'"
+  auto_select: true #是否自动上屏
+  max_code_length: 4 #最大码长，结合auto_select就是最长4码，第5码上屏
+  auto_select_unique_candidate: false #是否无重码自动上屏
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: ["日", "英"]
+  - name: full_shape
+    states: ["半", "全"]
+  - name: simplification #filters中的simplifier组件会检查这个simplification变量，然后决定是用平假名还是片假名
+    states: ["あ", "カ"]
+  - name: ascii_punct
+    states: ["。，", "．，"]
+
+translator:
+  dictionary: kappajp86
+  disable_user_dict_for_patterns:
+    - "^z.*$"
+  enable_charset_filter: false #是否开启字符集过滤
+  enable_encoder: false #是否开启自动造词
+  enable_sentence: false #是否开启自动造句
+  encode_commit_history: false #是否对已上屏词自动成词
+  enable_completion: false #是否开启编码逐渐提示
+  max_phrase_length: 4
+  enable_user_dict: false #是否开启用户词典，rime默认会自动调频，如果要关闭自动调频则必须要关闭用户词典
+
+simplifier:
+  opencc_config: hiragana2katakana.ini  #将opencc组件连接到这个组件上，用来将平假名转换成片假名。
