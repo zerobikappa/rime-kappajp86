@@ -1,4 +1,11 @@
 # rime-kappajp86
+
+发现原来@momijineko 一早帮我将方案共享到github了。相比我自己的方案还做了许多完善和改进，真是非常感谢。请移步以下链接浏览：
+https://github.com/momijineko/Rime-KappaJP
+
+
+
+
 rime-河童日文五笔方案
 
 （1）输入汉字
