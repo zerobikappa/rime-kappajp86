@@ -1,1 +1,39 @@
+此文件夹中的文件，是日文平假名与片假名转换的配置文件。
+opencc是一个简繁文字转换的组件，利用其原理，配置一个 平假名==>片假名 的映射词库，可做到平假名转换成片假名。
+在安装完rime输入法后，必须要安装opencc才可以使用这个配置。
 
+安装完opencc后，将此文件夹中的 hiragana2katakana.ini 和 hiragana_to_katakana_characters.ocd 两个文件复制到/usr/share/opencc/ 中（此文件夹中应该也有其他的.ini 和 .ocd 文件）。需要注销才能应用此配置。
+hiragana_to_katakana_characters.ocd 是平假名==>片假名映射码表
+hiragana2katakana.ini 是opencc平片配置文件
+
+***更新date:1806162024
+如果是0.9以后的copencc版本，有可能配置文件用的是.json后缀的文件，而非原本的.ini后缀文件，需要用本目录中的hiragana2katakana.json
+
+
+在rime的配置文件中，也要做相应的修改，才能使用此opencc组件。
+在kappajp86.custom.yaml中加入以下段保存后重新载入即可：
+
+patch:
+  switches:
+    - name: ascii_mode
+      reset: 0
+      states: [ 中文, 西文 ]
+    - name: full_shape
+      states: [ 半角, 全角 ]
+    - name: simplification
+      states: [ あ, カ ]
+
+  simplifier/opencc_config: hiragana2katakana.ini
+
+  engine/filters:
+    - simplifier
+    - uniquifier
+
+
+如果不行的话就在kappajp86.scheme.yaml中直接修改。
+
+
+***更新date:1807072203
+新增古文假名
+ゐ	ヰ
+ゑ	ヱ

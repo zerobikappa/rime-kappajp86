@@ -73,6 +73,12 @@ ascii_composer:
 
 punctuator:
   import_preset: default
+  full_shape:
+    ",": ["、", "，"]
+    "|": ["・", "｜", "§", "¦"]
+  half_shape:
+    ",": ["、", "，"]
+    "|": ["・", "·", "|", "｜", "§", "¦"]
 recognizer:
   import_preset: default
   patterns:
@@ -99,7 +105,7 @@ schema:
     
   name: "河童日文86"
   schema_id: kappajp86
-  version: 0.11.custom.1383660837
+  version: 0.12.custom.1383660837
 speller:
   delimiter: " ;'"
   auto_select: true #是否自动上屏
@@ -130,4 +136,4 @@ translator:
   enable_user_dict: false #是否开启用户词典，rime默认会自动调频，如果要关闭自动调频则必须要关闭用户词典
 
 simplifier:
-  opencc_config: hiragana2katakana.ini  #将opencc组件连接到这个组件上，用来将平假名转换成片假名。
+  opencc_config: hiragana2katakana.json  #将opencc组件连接到这个组件上，用来将平假名转换成片假名。
