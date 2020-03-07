@@ -27,6 +27,8 @@ engine:
 
 key_binder:
   bindings:
+    - { when: has_menu, accept: semicolon, send: 2 }
+    - { when: has_menu, accept: apostrophe, send: 3 }
     # Emacs style
     - { when: composing, accept: Control+p, send: Up }
     - { when: composing, accept: Control+n, send: Down }
