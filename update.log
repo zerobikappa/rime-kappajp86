@@ -11,4 +11,5 @@
 3.新增以罗马拼音的方式编码以下字符
 ヵ	lka
 ヶ	lke
-
+###scheme.0.13
+使用history_translator增加按z键重复上次输入的功能

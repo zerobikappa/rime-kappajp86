@@ -19,6 +19,7 @@ engine:
     - punct_translator
     #- reverse_lookup_translator    #禁用反查功能
     - table_translator
+    - history_translator@historyz  #增加按z键重复上一次输入
     - echo_translator
   filters:
     - simplifier #用于转换文字，必须有这个组件才能将平假名转换成片假名
@@ -139,3 +140,17 @@ translator:
 
 simplifier:
   opencc_config: hiragana2katakana.json  #将opencc组件连接到这个组件上，用来将平假名转换成片假名。
+
+#配置重复上一次输入的功能
+historyz:
+  input: z
+  size: 1  #重复前几次上屏，1就是一次
+  initial_quality: 1  #如果z键有其他词库编码，那么将上一次上屏的词的权重设为1
+#权重的数字越大，越靠前
+#默认码表的权重为0，此处为1，
+#所以重复上屏的字在默认码表前面。
+#如果设为0或负数会有什么效果，暂时未尝试。
+
+
+
+
