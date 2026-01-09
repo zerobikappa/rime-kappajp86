@@ -21,6 +21,7 @@ engine:
     - table_translator
     - history_translator@historyz  #增加按z键重复上一次输入
     - echo_translator
+    - lua_translator@jp_date_translator #add date format translator
   filters:
     - simplifier #用于转换文字，必须有这个组件才能将平假名转换成片假名
     - uniquifier
@@ -82,6 +83,8 @@ punctuator:
   half_shape:
     ",": ["、", "，"]
     "|": ["・", "·", "|", "｜", "§", "¦"]
+    "!": ["！", "!", "‼", "⁉"]
+    "?": ["？", "?", "⁇", "⁈"]
 recognizer:
   import_preset: default
   patterns:
@@ -122,6 +125,7 @@ switches:
   - name: full_shape
     states: ["半", "全"]
   - name: simplification #filters中的simplifier组件会检查这个simplification变量，然后决定是用平假名还是片假名
+    reset: 0
     states: ["あ", "カ"]
   - name: ascii_punct
     states: ["。，", "．，"]
