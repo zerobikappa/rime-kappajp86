@@ -9,7 +9,7 @@
   },
   "conversion_chain": [{
     "dict": {
-      "type": "text",
+      "type": "ocd2",
       "file": "hiragana_to_katakana_characters.ocd2"
     }
   }]

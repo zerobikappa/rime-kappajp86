@@ -19,8 +19,7 @@ pacman -S opencc
 
 (2) 生成ocd2格式的二进制映射文件
 ```bash
-opencc_dict -i hiragana_to_katakana_characters.txt -f text -t ocd2 -o
-hiragana_to_katakana_characters.ocd2
+opencc_dict -i hiragana_to_katakana_characters.txt -f text -t ocd2 -o hiragana_to_katakana_characters.ocd2
 
 ```
 
