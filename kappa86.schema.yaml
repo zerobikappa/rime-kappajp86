@@ -2,29 +2,26 @@
 # encoding: utf-8
 
 schema:
-  schema_id: kappajp86
-  name: "河童日文86"
-  version: "0.13"
+  schema_id: kappa86
+  name: "河童中文86"
+  version: "0.02"
   author:
     - "Mikata Riko"
   description: |
-    河童子定制日文五筆字型86版
+    河童子定制五筆字型86版
     編碼規則源自 王永民86版五筆輸入法
-    詞庫參考 『広辞苑』
-    詞庫參考 『三省堂大辞林』
     禁用敲 z 鍵進入拼音反查功能
   dependencies:
     - pinyin_simp
-    
+
 switches:
   - name: ascii_mode
     reset: 0
-    states: ["日", "英"]
+    states: ["中文", "西文"]
   - name: full_shape
-    states: ["半", "全"]
-  - name: simplification #filters中的simplifier组件会检查这个simplification变量，然后决定是用平假名还是片假名
-    reset: 0
-    states: ["あ", "カ"]
+    states: ["半角", "全角"]
+  - name: extended_charset
+    states: ["常用", "增廣"]
   - name: ascii_punct
     states: ["。，", "．，"]
 
@@ -50,10 +47,6 @@ engine:
     - table_translator
     - history_translator@historyz  #增加按z键重复上一次输入
     - echo_translator
-    - lua_translator@jp_date_translator #add date format translator
-  filters:
-    - simplifier #用于转换文字，必须有这个组件才能将平假名转换成片假名
-    - uniquifier
 
 speller:
   delimiter: " ;'"
@@ -62,9 +55,7 @@ speller:
   auto_select_unique_candidate: false #是否无重码自动上屏
 
 translator:
-  dictionary: kappajp86
-  disable_user_dict_for_patterns:
-    - "^z.*$"
+  dictionary: kappa86
   enable_charset_filter: false #是否开启字符集过滤
   enable_encoder: false #是否开启自动造词
   enable_sentence: false #是否开启自动造句
@@ -72,10 +63,12 @@ translator:
   enable_completion: false #是否开启编码逐渐提示
   max_phrase_length: 4
   enable_user_dict: false #是否开启用户词典，rime默认会自动调频，如果要关闭自动调频则必须要关闭用户词典
+  disable_user_dict_for_patterns:
+    - "^z.*$"
 
 reverse_lookup:
   dictionary: pinyin_simp
-  prefix: z
+  prefix: "z"
   suffix: "'"
   tips: "〔拼音〕"
   preedit_format:
@@ -86,18 +79,16 @@ reverse_lookup:
 punctuator:
   import_preset: default
   full_shape:
-    ",": ["、", "，"]
+    #",": ["、", "，"]
     "|": ["・", "｜", "§", "¦"]
   half_shape:
-    ",": ["、", "，"]
+    #",": ["、", "，"]
     "|": ["・", "·", "|", "｜", "§", "¦"]
     "!": ["！", "!", "‼", "⁉"]
     "?": ["？", "?", "⁇", "⁈"]
 
 key_binder:
   bindings:
-    - { when: has_menu, accept: semicolon, send: 2 }
-    - { when: has_menu, accept: apostrophe, send: 3 }
     # Emacs style
     - { when: composing, accept: Control+p, send: Up }
     - { when: composing, accept: Control+n, send: Down }
@@ -118,37 +109,30 @@ key_binder:
     - { when: composing, accept: Tab, send: Page_Down }
     - { when: has_menu, accept: minus, send: Page_Up }
     - { when: has_menu, accept: equal, send: Page_Down }
+    #我禁用了句号和逗号的翻页功能
     #- { when: paging, accept: comma, send: Page_Up }
     #- { when: has_menu, accept: period, send: Page_Down }
-    #禁用了句号和逗号的翻页功能
+    #我添加了分号与单引号选第2第3候选的功能
+    - {accept: semicolon, send: 2, when: has_menu}
+    - {accept: apostrophe, send: 3, when: has_menu}
     # hotkey switch
-    #- { when: always, accept: Control+Shift+1, select: .next }
-    #- { when: always, accept: Control+Shift+2, toggle: ascii_mode }
-    #- { when: always, accept: Control+Shift+3, toggle: full_shape }
-    #- { when: always, accept: Control+Shift+4, toggle: simplification }
-    #- { when: always, accept: Control+Shift+5, toggle: extended_charset }
-    #- { when: always, accept: Control+Shift+exclam, select: .next }
-    #- { when: always, accept: Control+Shift+at, toggle: ascii_mode }
-    #- { when: always, accept: Control+Shift+numbersign, toggle: full_shape }
-    #- { when: always, accept: Control+Shift+dollar, toggle: simplification }
-    #- { when: always, accept: Control+Shift+percent, toggle: extended_charset }
+    - { when: always, accept: Control+Shift+1, select: .next }
+    - { when: always, accept: Control+Shift+2, toggle: ascii_mode }
+    - { when: always, accept: Control+Shift+3, toggle: full_shape }
+    - { when: always, accept: Control+Shift+4, toggle: simplification }
+    - { when: always, accept: Control+Shift+5, toggle: extended_charset }
+    - { when: always, accept: Control+Shift+exclam, select: .next }
+    - { when: always, accept: Control+Shift+at, toggle: ascii_mode }
+    - { when: always, accept: Control+Shift+numbersign, toggle: full_shape }
+    - { when: always, accept: Control+Shift+dollar, toggle: simplification }
+    - { when: always, accept: Control+Shift+percent, toggle: extended_charset }
     - { when: always, accept: Shift+space, toggle: full_shape }
     - { when: always, accept: Control+period, toggle: ascii_punct }
-    - { when: always, accept: F7, toggle: simplification } #設置F7为切换平片假名的快捷键
-    - { when: always, accept: Shift_R, toggle: simplification } #设置右键为切换平片假名
 
 recognizer:
   import_preset: default
   patterns:
     reverse_lookup: "^z[a-z]*'?$"
-
-ascii_composer:
-  switch_key:
-    Shift_L: inline_ascii
-    Shift_R: noop    #设置左shift为切换中英，屏蔽右shift的切换中英功能，这样可以空出右shift键来切换平片假名
-
-simplifier:
-  opencc_config: hiragana2katakana.json  #将opencc组件连接到这个组件上，用来将平假名转换成片假名。
 
 #配置重复上一次输入的功能
 historyz:

@@ -3,14 +3,14 @@
   "segmentation": {
     "type": "mmseg",
     "dict": {
-      "type": "text",
-      "file": "hiragana_to_katakana_characters.txt"
+      "type": "ocd2",
+      "file": "hiragana_to_katakana_characters.ocd2"
     }
   },
   "conversion_chain": [{
     "dict": {
       "type": "text",
-      "file": "hiragana_to_katakana_characters.txt"
+      "file": "hiragana_to_katakana_characters.ocd2"
     }
   }]
 }

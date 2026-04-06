@@ -1,21 +1,27 @@
 # Rime dictionary: kappajp86
 # encoding: utf-8
 #
-# Changelog
-# Gong Chen <chen.sst@gmail.com>
-#     - Convert to Rime dictionary format.
-# Yu Yuwei <acevery@gmail.com>
-#     - Use original level 1 and 2 JianMa.
-# Yu Yuwei <acevery@gmail.com>
-#     - Update to Jidian 6, provided by Chen Xing
-# Yu Yuwei <acevery@gmail.com>
-#     - Add freqs from google.
-#     - Fix punctuation freqs
-# Chen Xing <cxcxcxcx@gmail.com>
-#     - Convert from JidianWubi table
 #
-# Original table author
-# Wozy <wozy.in@gmail.com>
+# 如果是用vim编辑的话，先在普通模式下输入：
+# :set noexpandtab
+# 这样就能防止tab键被自动换成空格
+#
+# 01_hiragana平假名
+#     あ	aa	99999999
+# 02_hiraganatango平假名单词
+#     あちら	acra	77716140
+# 03_kanji汉字
+#     工	a	66616131
+# 04_kisatango基础单词
+#     芋蔓式	aaaa	55515487
+# 05_特殊符号
+#     ❤	zzts	181
+# 06_邮箱后缀
+#     @126.com	at	4
+# 07_单手标点（左手）
+#     ’	cz	999999
+# 08_颜文字&颜表情
+#     (T_T)	ze	999999
 
 ---
 name: kappajp86
@@ -40,11 +46,6 @@ encoder:
 ...
 
 
-
-#
-#
-#
-#01hiragana平假名
 あ	aa	99999999
 い	ii	99999999
 う	uu	99999999
@@ -13622,10 +13623,6 @@ encoder:
 ヶ	lke	99999999
 
 
-#
-#
-#
-#03hiraganatango平假名单词
 あちら	acra	77716140
 あいだ	aida	77716139
 あいつ	aitu	77716138
@@ -13712,11 +13709,6 @@ encoder:
 ように	yuni	77715649
 
 
-
-#
-#
-#
-#04kanji汉字
 工	a	66616131
 式	a	66616130
 葉	aa	66616129
@@ -23679,11 +23671,6 @@ encoder:
 々	z	66616383
 
 
-
-#
-#
-#
-#05kisatango基础单词
 芋蔓式	aaaa	55515487
 工芸	aaaf	55515486
 薯蕷芋	aaag	55515485
@@ -51460,18 +51447,6 @@ encoder:
 文語文	yyyy	55513360
 
 
-
-
-#
-#
-#
-#以下是用户词库
-#如果是用vim编辑的话，先在普通模式下输入：
-#:set noexpandtab
-#这样就能防止tab键被自动换成空格
-#
-
-#05特殊符号
 ❤	zzts	181
 ℃	zzts	200
 °	zzts	199
@@ -51503,13 +51478,12 @@ encoder:
 ￣	zzts	172
 
 
-#06邮箱后缀
 @126.com	at	4
 @163.com	at	3
 @gmail.com	at	2
 @qq.com	at	1
 
-#07单手标点（左手）
+
 ’	cz	999999
 >	cz	999998
 」	cz	999997
@@ -51572,7 +51546,7 @@ _	za	999997
 【	zv	999996
 、	zx	999999
 
-#08颜文字&颜表情
+
 (T_T)	ze	999999
 (〒▽〒)	ze	999998
 (＿TдT)	ze	999997

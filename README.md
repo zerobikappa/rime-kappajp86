@@ -1,15 +1,5 @@
 # rime-kappajp86
 
-other link:
-
-@momijineko 对我的方案做了一些完善和改进。如有需要请移步以下链接浏览：
-
-https://github.com/momijineko/Rime-KappaJP
-
-
-
-　
-
 rime-河童日文五笔方案
 
 （1）输入汉字
